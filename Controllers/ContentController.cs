@@ -144,7 +144,6 @@ namespace TiengAnh.Controllers
             }
         }
 
-        // Rest of the controller remains unchanged
         [HttpGet]
         public IActionResult AddGrammar()
         {

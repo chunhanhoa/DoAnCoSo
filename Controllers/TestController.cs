@@ -68,6 +68,7 @@ namespace TiengAnh.Controllers
         }
 
         // GET: /Test/Details/{id}
+        [HttpGet]
         [Route("Test/Details/{id}")]
         public async Task<IActionResult> Details(string id)
         {
@@ -121,6 +122,7 @@ namespace TiengAnh.Controllers
         }
 
         // GET: /Test/Category/{category}
+        [HttpGet]
         public async Task<IActionResult> Category(string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -144,6 +146,7 @@ namespace TiengAnh.Controllers
         }
 
         // GET: /Test/Level/{level}
+        [HttpGet]
         public async Task<IActionResult> Level(string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -167,6 +170,7 @@ namespace TiengAnh.Controllers
         }
 
         // GET: /Test/Take/{id}
+        [HttpGet]
         [Route("Test/Take/{id}")]
         public async Task<IActionResult> Take(string id)
         {
@@ -550,6 +554,7 @@ namespace TiengAnh.Controllers
         }
 
         // GET: /Test/Completed
+        [HttpGet]
         public async Task<IActionResult> Completed()
         {
             try
@@ -627,6 +632,7 @@ namespace TiengAnh.Controllers
         }
 
         // GET: /Test/Progress
+        [HttpGet]
         public async Task<IActionResult> Progress()
         {
             try

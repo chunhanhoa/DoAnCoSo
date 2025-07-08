@@ -14,6 +14,43 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Add Swagger services
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Title = "TiengAnh API",
+        Version = "v1",
+        Description = "API cho hệ thống học tiếng Anh"
+    });
+    
+    // Cấu hình JWT Authentication cho Swagger
+    c.AddSecurityDefinition("Cookie", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+    {
+        Description = "Cookie Authentication",
+        Name = "Cookie",
+        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+        Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
+        Scheme = "Cookie"
+    });
+    
+    c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+    {
+        {
+            new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+            {
+                Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                {
+                    Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                    Id = "Cookie"
+                }
+            },
+            new string[] { }
+        }
+    });
+});
+
 // Register MongoDB services
 builder.Services.Configure<TiengAnh.Services.MongoDbSettings>(
     builder.Configuration.GetSection("MongoDbSettings"));
@@ -205,6 +242,17 @@ using (var scope = app.Services.CreateScope())
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
+    
+    // Enable Swagger only in development
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "TiengAnh API V1");
+        c.RoutePrefix = "swagger"; // Swagger UI sẽ có sẵn tại /swagger
+        c.DocumentTitle = "TiengAnh API Documentation";
+        c.DefaultModelsExpandDepth(-1); // Ẩn models section
+        c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.List);
+    });
 }
 else
 {
@@ -232,23 +280,11 @@ app.Use(async (context, next) =>
     await next();
 });
 
-// Block Swagger requests
-app.Use(async (context, next) =>
-{
-    if (context.Request.Path.StartsWithSegments("/swagger") ||
-        context.Request.Path == "/index.html" && context.Request.QueryString.Value.Contains("swagger"))
-    {
-        context.Response.Redirect("/");
-        return;
-    }
-    await next();
-});
-
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Configure MVC routes
+// Configure MVC routes - Bỏ route api
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

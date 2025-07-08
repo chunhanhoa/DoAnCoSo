@@ -9,7 +9,7 @@ using TiengAnh.Models;
 
 namespace TiengAnh.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class HealthCheckController : ControllerBase
     {

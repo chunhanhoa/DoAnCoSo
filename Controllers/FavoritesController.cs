@@ -27,6 +27,7 @@ namespace TiengAnh.Controllers
             _grammarRepository = grammarRepository;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index(int page = 1)
         {
             // Get ID of currently logged in user
@@ -119,7 +120,7 @@ namespace TiengAnh.Controllers
         }
 
         [HttpPost]
-        [Route("Favorites/RemoveFavorite")]
+        [Route("RemoveFavorite")]
         public async Task<IActionResult> RemoveFavorite([FromBody] ToggleFavoriteModel model)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);

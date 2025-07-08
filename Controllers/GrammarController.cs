@@ -22,12 +22,14 @@ namespace TiengAnh.Controllers
             _grammarRepository = grammarRepository;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var groupedLessons = await _grammarRepository.GetGroupedGrammarAsync();
             return View(groupedLessons);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
             var grammar = await _grammarRepository.GetByGrammarIdAsync(id);
@@ -39,14 +41,21 @@ namespace TiengAnh.Controllers
 
             // Kiểm tra trạng thái yêu thích nếu người dùng đã đăng nhập
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (!string.IsNullOrEmpty(userId) && grammar != null)
+            if (!string.IsNullOrEmpty(userId))
             {
                 grammar.IsFavorite = grammar.FavoriteByUsers != null && 
                                     grammar.FavoriteByUsers.Contains(userId);
             }
 
             // Ghi log khi người dùng truy cập vào chi tiết bài học
-            _logger.LogInformation($"User accessed grammar lesson: {grammar.Title_NP} (ID: {grammar.ID_NP})");
+            try
+            {
+                _logger.LogInformation($"User accessed grammar lesson: {grammar.Title_NP ?? "Unknown"} (ID: {grammar.ID_NP})");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning($"Could not log grammar access: {ex.Message}");
+            }
             
             // Đảm bảo có danh sách ví dụ để tránh lỗi null reference
             if (grammar.Examples == null)
@@ -57,6 +66,7 @@ namespace TiengAnh.Controllers
             return View(grammar);
         }
         
+        [HttpGet]
         public async Task<IActionResult> Level(string level)
         {
             var grammars = await _grammarRepository.GetGrammarsByLevelAsync(level);
@@ -114,6 +124,7 @@ namespace TiengAnh.Controllers
             });
         }
 
+        [HttpGet]
         [Authorize]
         public async Task<IActionResult> Favorites()
         {

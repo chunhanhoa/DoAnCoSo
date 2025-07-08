@@ -8,7 +8,7 @@ using TiengAnh.Repositories;
 
 namespace TiengAnh.Controllers
 {
-    [Route("api/avatar")]
+    [Route("avatar")]
     [ApiController]
     public class AvatarApiController : ControllerBase
     {

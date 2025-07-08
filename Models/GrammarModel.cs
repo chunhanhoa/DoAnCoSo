@@ -19,7 +19,7 @@ namespace TiengAnh.Models
         [BsonElement("Content_NP")]
         public string? Content_NP { get; set; }
         
-        [BsonElement("Content")]
+        [BsonIgnore]
         public string? Content
         {
             get { return Content_NP; }
@@ -58,13 +58,25 @@ namespace TiengAnh.Models
             return FavoriteByUsers != null && FavoriteByUsers.Contains(userId);
         }
 
-        [BsonElement("title")]
-        public string Title { get; set; } = string.Empty;
+        [BsonIgnore]
+        public string Title 
+        { 
+            get { return Title_NP; }
+            set { Title_NP = value; }
+        }
 
-        [BsonElement("summary")]
-        public string Summary { get; set; } = string.Empty;
+        [BsonIgnore]
+        public string Summary 
+        { 
+            get { return Description_NP; }
+            set { Description_NP = value; }
+        }
 
-        [BsonElement("id_grammar")]
-        public int ID { get; set; }
+        [BsonIgnore]
+        public int ID 
+        { 
+            get { return ID_NP; }
+            set { ID_NP = value; }
+        }
     }
 }

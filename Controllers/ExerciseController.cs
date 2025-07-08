@@ -26,6 +26,7 @@ namespace TiengAnh.Controllers
             _logger = logger;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             try
@@ -147,6 +148,7 @@ namespace TiengAnh.Controllers
         }
 
         // Phương thức xử lý bài tập điền từ
+        [HttpGet]
         public async Task<IActionResult> FillBlank(int id)
         {
             var topic = await _topicRepository.GetTopicByIdAsync(id);
@@ -171,6 +173,7 @@ namespace TiengAnh.Controllers
         }
 
         // Phương thức xử lý bài tập sắp xếp câu
+        [HttpGet]
         public async Task<IActionResult> WordOrdering(int id)
         {
             var topic = await _topicRepository.GetTopicByIdAsync(id);

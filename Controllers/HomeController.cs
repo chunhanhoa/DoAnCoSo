@@ -24,6 +24,7 @@ namespace TiengAnh.Controllers
             _vocabularyRepository = vocabularyRepository;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             _logger.LogInformation("Tải dữ liệu chủ đề cho trang chủ");
@@ -48,16 +49,19 @@ namespace TiengAnh.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult Privacy()
         {
             return View();
         }
 
+        [HttpGet]
         public IActionResult Contact()
         {
             return View();
         }
 
+        [HttpGet]
         public IActionResult About()
         {
             return View();

@@ -1820,7 +1820,6 @@ C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Do an co so\DoAnCoSo\DoAnCoSo\ob
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Do an co so\DoAnCoSo\DoAnCoSo\obj\Debug\net9.0\compressed\o1spavlecy-k3z261ad2j.gz
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Do an co so\DoAnCoSo\DoAnCoSo\obj\Debug\net9.0\compressed\oo1fr1lsy7-61i4z0bqvv.gz
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Do an co so\DoAnCoSo\DoAnCoSo\obj\Debug\net9.0\compressed\kxzlo6fflb-kkca0xhlkc.gz
-C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Do an co so\DoAnCoSo\DoAnCoSo\obj\Debug\net9.0\compressed\yzgn93pvvo-josi2ww9yi.gz
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Do an co so\DoAnCoSo\DoAnCoSo\obj\Debug\net9.0\compressed\tw24uxyb5b-r52svluqsq.gz
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Do an co so\DoAnCoSo\DoAnCoSo\obj\Debug\net9.0\compressed\dufysslt1n-gv2s2a169w.gz
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Do an co so\DoAnCoSo\DoAnCoSo\obj\Debug\net9.0\compressed\unmac4mia2-pewmqhatka.gz
@@ -1901,3 +1900,9 @@ C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Do an co so\DoAnCoSo\DoAnCoSo\ob
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Do an co so\DoAnCoSo\DoAnCoSo\obj\Debug\net9.0\TiengAnh.pdb
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Do an co so\DoAnCoSo\DoAnCoSo\obj\Debug\net9.0\TiengAnh.genruntimeconfig.cache
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Do an co so\DoAnCoSo\DoAnCoSo\obj\Debug\net9.0\ref\TiengAnh.dll
+C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Do an co so\DoAnCoSo\DoAnCoSo\obj\Debug\net9.0\compressed\yzgn93pvvo-josi2ww9yi.gz
+C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Do an co so\DoAnCoSo\DoAnCoSo\bin\Debug\net9.0\Microsoft.OpenApi.dll
+C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Do an co so\DoAnCoSo\DoAnCoSo\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Do an co so\DoAnCoSo\DoAnCoSo\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Do an co so\DoAnCoSo\DoAnCoSo\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Do an co so\DoAnCoSo\DoAnCoSo\obj\Debug\net9.0\TiengAnh.MvcApplicationPartsAssemblyInfo.cs

@@ -27,6 +27,7 @@ namespace TiengAnh.Controllers
             _topicRepository = topicRepository;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             // Lấy danh sách tất cả các chủ đề
@@ -62,6 +63,7 @@ namespace TiengAnh.Controllers
             return View(topics);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Topic(int id, int page = 1)
         {
             var topic = await _topicRepository.GetByTopicIdAsync(id);
@@ -86,6 +88,7 @@ namespace TiengAnh.Controllers
             return View(vocabularies);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
             var vocabulary = await _vocabularyRepository.GetByVocabularyIdAsync(id);
@@ -97,17 +100,24 @@ namespace TiengAnh.Controllers
             // Lấy danh sách các từ vựng cùng chủ đề
             var relatedVocabularies = await _vocabularyRepository.GetByTopicIdAsync(vocabulary.ID_CD);
             
-            // Loại bỏ từ vựng hiện tại khỏi danh sách
-            relatedVocabularies = relatedVocabularies.Where(v => v.ID_TV != vocabulary.ID_TV).ToList();
-            
-            // Random lấy tối đa 5 từ vựng liên quan
-            var randomRelatedWords = relatedVocabularies
-                .OrderBy(v => Guid.NewGuid()) // Sắp xếp ngẫu nhiên
-                .Take(5)
-                .ToList();
-            
-            // Truyền danh sách từ vựng liên quan qua ViewBag
-            ViewBag.RelatedWords = randomRelatedWords;
+            // Kiểm tra null và loại bỏ từ vựng hiện tại khỏi danh sách
+            if (relatedVocabularies != null)
+            {
+                relatedVocabularies = relatedVocabularies.Where(v => v.ID_TV != vocabulary.ID_TV).ToList();
+                
+                // Random lấy tối đa 5 từ vựng liên quan
+                var randomRelatedWords = relatedVocabularies
+                    .OrderBy(v => Guid.NewGuid()) // Sắp xếp ngẫu nhiên
+                    .Take(5)
+                    .ToList();
+                
+                // Truyền danh sách từ vựng liên quan qua ViewBag
+                ViewBag.RelatedWords = randomRelatedWords;
+            }
+            else
+            {
+                ViewBag.RelatedWords = new List<VocabularyModel>();
+            }
             
             // Cập nhật trạng thái yêu thích nếu người dùng đã đăng nhập
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -119,6 +129,7 @@ namespace TiengAnh.Controllers
             return View(vocabulary);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Flashcard(int id)
         {
             var topic = await _topicRepository.GetByTopicIdAsync(id);
@@ -132,6 +143,7 @@ namespace TiengAnh.Controllers
             return View(vocabularies);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Exercise(int id)
         {
             var topic = await _topicRepository.GetByTopicIdAsync(id);
@@ -147,6 +159,7 @@ namespace TiengAnh.Controllers
 
         // Thêm phương thức để khởi tạo dữ liệu chủ đề
 
+        [HttpGet]
         public async Task<IActionResult> InitializeTopics()
         {
             if (await _topicRepository.HasDataAsync())

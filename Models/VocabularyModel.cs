@@ -21,14 +21,14 @@ namespace TiengAnh.Models
 
         [BsonElement("Example_TV")]
         [Required(ErrorMessage = "Vui lòng nhập câu ví dụ")]
-        public string Example_TV { get; set; } = null!; // Made non-nullable to match UI required
+        public string Example_TV { get; set; } = null!;
 
         [BsonElement("Audio_TV")]
         public string? Audio_TV { get; set; }
 
         [BsonElement("Image_TV")]
         [Display(Name = "Hình ảnh minh họa")]
-        public string? Image_TV { get; set; } // Nullable to allow no image
+        public string? Image_TV { get; set; }
 
         [BsonElement("Level_TV")]
         [Required(ErrorMessage = "Vui lòng chọn cấp độ")]
@@ -40,7 +40,7 @@ namespace TiengAnh.Models
 
         [BsonElement("ID_LT")]
         [Required(ErrorMessage = "Vui lòng chọn loại từ")]
-        public string ID_LT { get; set; } = null!; // Made non-nullable to match UI required
+        public string ID_LT { get; set; } = null!;
 
         [BsonElement("PartOfSpeech")]
         public string? PartOfSpeech { get; set; }
