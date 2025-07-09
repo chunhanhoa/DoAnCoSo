@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "iELK6jbSurHAq++u2a6jCWos7jG7Ley+X3aICF6dvxE=",
+  "Hash": "dwdn2GvrbCan+29W5TVBtPynoeIBDniHk/VdZXSQGp8=",
   "Source": "TiengAnh",
   "BasePath": "_content/TiengAnh",
   "Mode": "Default",
@@ -918,6 +918,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Do an co so\\DoAnCoSo\\DoAnCoSo\\wwwroot\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Identity": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Do an co so\\DoAnCoSo\\DoAnCoSo\\obj\\Debug\\net9.0\\compressed\\n3s1ehae52-21siymeuc9.gz",
+      "SourceId": "TiengAnh",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Do an co so\\DoAnCoSo\\DoAnCoSo\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/TiengAnh",
+      "RelativePath": "css/swagger-ui-custom#[.{fingerprint=21siymeuc9}]?.css.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Do an co so\\DoAnCoSo\\DoAnCoSo\\wwwroot\\css\\swagger-ui-custom.css",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "swerloz8qa",
+      "Integrity": "PEmAd8q8B+FG9wIqKeXgG0ucsApNB7XpZxH71f88vjM=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Do an co so\\DoAnCoSo\\DoAnCoSo\\wwwroot\\css\\swagger-ui-custom.css"
     },
     {
       "Identity": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Do an co so\\DoAnCoSo\\DoAnCoSo\\obj\\Debug\\net9.0\\compressed\\nj69ewdc7q-v0zj4ognzu.gz",
@@ -1968,6 +1989,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Do an co so\\DoAnCoSo\\DoAnCoSo\\wwwroot\\css\\swagger-ui-custom.css",
+      "SourceId": "TiengAnh",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Do an co so\\DoAnCoSo\\DoAnCoSo\\wwwroot\\",
+      "BasePath": "_content/TiengAnh",
+      "RelativePath": "css/swagger-ui-custom#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "21siymeuc9",
+      "Integrity": "Zjgd5KRIUVdlaIWDCjKCaJrhjx01kYfgBB+AgdfuvLI=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\swagger-ui-custom.css"
     },
     {
       "Identity": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Do an co so\\DoAnCoSo\\DoAnCoSo\\wwwroot\\css\\vocabulary-form.css",
@@ -12290,6 +12332,304 @@
         {
           "Name": "integrity",
           "Value": "sha256-obBDCBsC1Jt/lZkb/td+Zhrn/Q16H0AfIoQT8ima9EQ="
+        }
+      ]
+    },
+    {
+      "Route": "css/swagger-ui-custom.21siymeuc9.css",
+      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Do an co so\\DoAnCoSo\\DoAnCoSo\\obj\\Debug\\net9.0\\compressed\\n3s1ehae52-21siymeuc9.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000843170320"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1185"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"PEmAd8q8B+FG9wIqKeXgG0ucsApNB7XpZxH71f88vjM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 09 Jul 2025 13:36:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"Zjgd5KRIUVdlaIWDCjKCaJrhjx01kYfgBB+AgdfuvLI=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "21siymeuc9"
+        },
+        {
+          "Name": "label",
+          "Value": "css/swagger-ui-custom.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Zjgd5KRIUVdlaIWDCjKCaJrhjx01kYfgBB+AgdfuvLI="
+        }
+      ]
+    },
+    {
+      "Route": "css/swagger-ui-custom.21siymeuc9.css",
+      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Do an co so\\DoAnCoSo\\DoAnCoSo\\wwwroot\\css\\swagger-ui-custom.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4537"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Zjgd5KRIUVdlaIWDCjKCaJrhjx01kYfgBB+AgdfuvLI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 09 Jul 2025 13:36:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "21siymeuc9"
+        },
+        {
+          "Name": "label",
+          "Value": "css/swagger-ui-custom.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Zjgd5KRIUVdlaIWDCjKCaJrhjx01kYfgBB+AgdfuvLI="
+        }
+      ]
+    },
+    {
+      "Route": "css/swagger-ui-custom.21siymeuc9.css.gz",
+      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Do an co so\\DoAnCoSo\\DoAnCoSo\\obj\\Debug\\net9.0\\compressed\\n3s1ehae52-21siymeuc9.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1185"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"PEmAd8q8B+FG9wIqKeXgG0ucsApNB7XpZxH71f88vjM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 09 Jul 2025 13:36:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "21siymeuc9"
+        },
+        {
+          "Name": "label",
+          "Value": "css/swagger-ui-custom.css.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-PEmAd8q8B+FG9wIqKeXgG0ucsApNB7XpZxH71f88vjM="
+        }
+      ]
+    },
+    {
+      "Route": "css/swagger-ui-custom.css",
+      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Do an co so\\DoAnCoSo\\DoAnCoSo\\obj\\Debug\\net9.0\\compressed\\n3s1ehae52-21siymeuc9.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000843170320"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1185"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"PEmAd8q8B+FG9wIqKeXgG0ucsApNB7XpZxH71f88vjM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 09 Jul 2025 13:36:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"Zjgd5KRIUVdlaIWDCjKCaJrhjx01kYfgBB+AgdfuvLI=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Zjgd5KRIUVdlaIWDCjKCaJrhjx01kYfgBB+AgdfuvLI="
+        }
+      ]
+    },
+    {
+      "Route": "css/swagger-ui-custom.css",
+      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Do an co so\\DoAnCoSo\\DoAnCoSo\\wwwroot\\css\\swagger-ui-custom.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4537"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Zjgd5KRIUVdlaIWDCjKCaJrhjx01kYfgBB+AgdfuvLI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 09 Jul 2025 13:36:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Zjgd5KRIUVdlaIWDCjKCaJrhjx01kYfgBB+AgdfuvLI="
+        }
+      ]
+    },
+    {
+      "Route": "css/swagger-ui-custom.css.gz",
+      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Do an co so\\DoAnCoSo\\DoAnCoSo\\obj\\Debug\\net9.0\\compressed\\n3s1ehae52-21siymeuc9.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1185"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"PEmAd8q8B+FG9wIqKeXgG0ucsApNB7XpZxH71f88vjM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 09 Jul 2025 13:36:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-PEmAd8q8B+FG9wIqKeXgG0ucsApNB7XpZxH71f88vjM="
         }
       ]
     },

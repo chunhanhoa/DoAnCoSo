@@ -11,9 +11,13 @@ using TiengAnh.Repositories;
 using TiengAnh.Services;
 using System.Text.Json;
 using MongoDB.Driver;
+using System.ComponentModel.DataAnnotations;
 
 namespace TiengAnh.Controllers
 {
+    /// <summary>
+    /// API Controller chính cho hệ thống học tiếng Anh
+    /// </summary>
     [Route("api/v1")]
     [ApiController]
     [Produces("application/json")]
@@ -56,9 +60,13 @@ namespace TiengAnh.Controllers
         /// <summary>
         /// Kiểm tra trạng thái hệ thống
         /// </summary>
+        /// <returns>Thông tin trạng thái hệ thống</returns>
+        /// <response code="200">Hệ thống hoạt động bình thường</response>
+        /// <response code="500">Hệ thống gặp lỗi</response>
         [HttpGet("health")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(500)]
+        [Tags("🔧 Hệ thống & Giám sát")]
+        [ProducesResponseType(typeof(HealthCheckResponse), 200)]
+        [ProducesResponseType(typeof(ErrorResponse), 500)]
         public async Task<IActionResult> HealthCheck()
         {
             try
@@ -66,7 +74,7 @@ namespace TiengAnh.Controllers
                 var isMongoConnected = await CheckMongoConnectionAsync();
                 var memoryUsage = GetMemoryUsage();
                 
-                return Ok(new
+                return Ok(new HealthCheckResponse
                 {
                     Status = "Healthy",
                     Timestamp = DateTime.UtcNow,
@@ -78,16 +86,23 @@ namespace TiengAnh.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Health check failed");
-                return StatusCode(500, new { Status = "Unhealthy", Error = ex.Message });
+                return StatusCode(500, new ErrorResponse { Success = false, Message = ex.Message });
             }
         }
 
         /// <summary>
-        /// Lấy thông tin tổng quan hệ thống
+        /// Lấy thông tin tổng quan hệ thống (Chỉ Admin)
         /// </summary>
+        /// <returns>Thông tin tổng quan về dữ liệu hệ thống</returns>
+        /// <response code="200">Lấy thông tin thành công</response>
+        /// <response code="401">Chưa đăng nhập</response>
+        /// <response code="403">Không có quyền truy cập</response>
         [HttpGet("system/overview")]
         [Authorize(Roles = "Admin")]
-        [ProducesResponseType(200)]
+        [Tags("🔧 Hệ thống & Giám sát")]
+        [ProducesResponseType(typeof(SystemOverviewResponse), 200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(403)]
         public async Task<IActionResult> SystemOverview()
         {
             try
@@ -130,9 +145,16 @@ namespace TiengAnh.Controllers
         /// <summary>
         /// Đăng ký tài khoản mới
         /// </summary>
+        /// <param name="request">Thông tin đăng ký</param>
+        /// <returns>Kết quả đăng ký</returns>
+        /// <response code="201">Đăng ký thành công</response>
+        /// <response code="400">Dữ liệu không hợp lệ hoặc email đã tồn tại</response>
+        /// <response code="500">Lỗi server</response>
         [HttpPost("auth/register")]
-        [ProducesResponseType(201)]
-        [ProducesResponseType(400)]
+        [Tags("👤 Quản lý người dùng")]
+        [ProducesResponseType(typeof(RegisterResponse), 201)]
+        [ProducesResponseType(typeof(ErrorResponse), 400)]
+        [ProducesResponseType(typeof(ErrorResponse), 500)]
         public async Task<IActionResult> Register([FromBody] RegisterApiRequest request)
         {
             try
@@ -185,11 +207,18 @@ namespace TiengAnh.Controllers
         }
 
         /// <summary>
-        /// Đăng nhập
+        /// Đăng nhập vào hệ thống
         /// </summary>
+        /// <param name="request">Thông tin đăng nhập</param>
+        /// <returns>Thông tin người dùng sau khi đăng nhập</returns>
+        /// <response code="200">Đăng nhập thành công</response>
+        /// <response code="401">Email hoặc mật khẩu không đúng</response>
+        /// <response code="400">Dữ liệu không hợp lệ</response>
         [HttpPost("auth/login")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(401)]
+        [Tags("👤 Quản lý người dùng")]
+        [ProducesResponseType(typeof(LoginResponse), 200)]
+        [ProducesResponseType(typeof(ErrorResponse), 401)]
+        [ProducesResponseType(typeof(ErrorResponse), 400)]
         public async Task<IActionResult> Login([FromBody] LoginApiRequest request)
         {
             try
@@ -959,16 +988,16 @@ namespace TiengAnh.Controllers
                 // Lưu kết quả test
                 var userTest = new UserTestModel
                 {
-                    UserId = userId,
+                    UserId = userId ?? string.Empty,
                     TestId = test.Id,
                     TestTitle = test.Title,
                     TestCategory = test.Category,
                     TestLevel = test.Level,
                     ImageUrl = test.ImageUrl,
-                    Score = submission.Score,
+                    Score = (int)submission.Score,
                     CorrectCount = submission.CorrectCount,
                     TotalQuestions = test.Questions.Count,
-                    TimeTaken = submission.TimeTaken,
+                    TimeTaken = submission.TimeTaken.ToString(),
                     CompletedAt = vietnamTime
                 };
 
@@ -1311,31 +1340,306 @@ namespace TiengAnh.Controllers
         #endregion
     }
 
-    #region Request Models
+    #region Request & Response Models
 
+    /// <summary>
+    /// Request model cho đăng ký
+    /// </summary>
     public class RegisterApiRequest
     {
+        /// <summary>
+        /// Email đăng ký (bắt buộc)
+        /// </summary>
+        /// <example>user@example.com</example>
+        [Required(ErrorMessage = "Email là bắt buộc")]
+        [EmailAddress(ErrorMessage = "Email không đúng định dạng")]
         public string Email { get; set; } = string.Empty;
+        
+        /// <summary>
+        /// Tên đăng nhập (tùy chọn)
+        /// </summary>
+        /// <example>username123</example>
         public string? Username { get; set; }
+        
+        /// <summary>
+        /// Mật khẩu (bắt buộc, tối thiểu 6 ký tự)
+        /// </summary>
+        /// <example>password123</example>
+        [Required(ErrorMessage = "Mật khẩu là bắt buộc")]
+        [MinLength(6, ErrorMessage = "Mật khẩu phải có ít nhất 6 ký tự")]
         public string Password { get; set; } = string.Empty;
+        
+        /// <summary>
+        /// Họ và tên đầy đủ
+        /// </summary>
+        /// <example>Nguyễn Văn A</example>
+        [Required(ErrorMessage = "Họ tên là bắt buộc")]
         public string FullName { get; set; } = string.Empty;
     }
 
+    /// <summary>
+    /// Request model cho đăng nhập
+    /// </summary>
     public class LoginApiRequest
     {
+        /// <summary>
+        /// Email đăng nhập
+        /// </summary>
+        /// <example>user@example.com</example>
+        [Required(ErrorMessage = "Email là bắt buộc")]
+        [EmailAddress(ErrorMessage = "Email không đúng định dạng")]
         public string Email { get; set; } = string.Empty;
+        
+        /// <summary>
+        /// Mật khẩu
+        /// </summary>
+        /// <example>password123</example>
+        [Required(ErrorMessage = "Mật khẩu là bắt buộc")]
         public string Password { get; set; } = string.Empty;
     }
 
+    /// <summary>
+    /// Response model cho health check
+    /// </summary>
+    public class HealthCheckResponse
+    {
+        /// <summary>
+        /// Trạng thái hệ thống
+        /// </summary>
+        public string Status { get; set; } = string.Empty;
+        
+        /// <summary>
+        /// Thời gian kiểm tra
+        /// </summary>
+        public DateTime Timestamp { get; set; }
+        
+        /// <summary>
+        /// Trạng thái kết nối MongoDB
+        /// </summary>
+        public bool MongoDbConnected { get; set; }
+        
+        /// <summary>
+        /// Mức sử dụng bộ nhớ (MB)
+        /// </summary>
+        public double MemoryUsageMB { get; set; }
+        
+        /// <summary>
+        /// Môi trường chạy
+        /// </summary>
+        public string Environment { get; set; } = string.Empty;
+    }
+
+    /// <summary>
+    /// Response model cho system overview
+    /// </summary>
+    public class SystemOverviewResponse
+    {
+        /// <summary>
+        /// Tổng số người dùng
+        /// </summary>
+        public int TotalUsers { get; set; }
+        
+        /// <summary>
+        /// Tổng số từ vựng
+        /// </summary>
+        public int TotalVocabularies { get; set; }
+        
+        /// <summary>
+        /// Tổng số bài ngữ pháp
+        /// </summary>
+        public int TotalGrammar { get; set; }
+        
+        /// <summary>
+        /// Tổng số chủ đề
+        /// </summary>
+        public int TotalTopics { get; set; }
+        
+        /// <summary>
+        /// Tổng số bài test
+        /// </summary>
+        public int TotalTests { get; set; }
+        
+        /// <summary>
+        /// Tổng số bài tập
+        /// </summary>
+        public int TotalExercises { get; set; }
+        
+        /// <summary>
+        /// Thời gian cập nhật cuối
+        /// </summary>
+        public DateTime LastUpdated { get; set; }
+    }
+
+    /// <summary>
+    /// Response model cho đăng ký
+    /// </summary>
+    public class RegisterResponse
+    {
+        /// <summary>
+        /// Thông báo kết quả
+        /// </summary>
+        public string Message { get; set; } = string.Empty;
+        
+        /// <summary>
+        /// ID người dùng được tạo
+        /// </summary>
+        public string UserId { get; set; } = string.Empty;
+        
+        /// <summary>
+        /// Email đã đăng ký
+        /// </summary>
+        public string Email { get; set; } = string.Empty;
+        
+        /// <summary>
+        /// Tên đăng nhập
+        /// </summary>
+        public string Username { get; set; } = string.Empty;
+    }
+
+    /// <summary>
+    /// Response model cho đăng nhập
+    /// </summary>
+    public class LoginResponse
+    {
+        /// <summary>
+        /// Thông báo kết quả
+        /// </summary>
+        public string Message { get; set; } = string.Empty;
+        
+        /// <summary>
+        /// Thông tin người dùng
+        /// </summary>
+        public UserInfo User { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Thông tin người dùng trong response
+    /// </summary>
+    public class UserInfo
+    {
+        /// <summary>
+        /// ID người dùng
+        /// </summary>
+        public string Id { get; set; } = string.Empty;
+        
+        /// <summary>
+        /// Email
+        /// </summary>
+        public string Email { get; set; } = string.Empty;
+        
+        /// <summary>
+        /// Tên đăng nhập
+        /// </summary>
+        public string Username { get; set; } = string.Empty;
+        
+        /// <summary>
+        /// Họ và tên
+        /// </summary>
+        public string FullName { get; set; } = string.Empty;
+        
+        /// <summary>
+        /// Đường dẫn avatar
+        /// </summary>
+        public string Avatar { get; set; } = string.Empty;
+        
+        /// <summary>
+        /// Vai trò
+        /// </summary>
+        public string Role { get; set; } = string.Empty;
+        
+        /// <summary>
+        /// Ngày tạo tài khoản
+        /// </summary>
+        public DateTime CreatedAt { get; set; }
+    }
+
+    /// <summary>
+    /// Request model cho đổi mật khẩu
+    /// </summary>
     public class ChangePasswordApiRequest
     {
+        /// <summary>
+        /// Mật khẩu hiện tại
+        /// </summary>
+        /// <example>oldpassword123</example>
+        [Required(ErrorMessage = "Mật khẩu hiện tại là bắt buộc")]
         public string CurrentPassword { get; set; } = string.Empty;
+        
+        /// <summary>
+        /// Mật khẩu mới (tối thiểu 6 ký tự)
+        /// </summary>
+        /// <example>newpassword123</example>
+        [Required(ErrorMessage = "Mật khẩu mới là bắt buộc")]
+        [MinLength(6, ErrorMessage = "Mật khẩu mới phải có ít nhất 6 ký tự")]
         public string NewPassword { get; set; } = string.Empty;
     }
 
+    /// <summary>
+    /// Request model cho kiểm tra đáp án bài tập
+    /// </summary>
     public class CheckAnswerRequest
     {
+        /// <summary>
+        /// Đáp án được chọn
+        /// </summary>
+        /// <example>A</example>
+        [Required(ErrorMessage = "Đáp án được chọn là bắt buộc")]
         public string SelectedAnswer { get; set; } = string.Empty;
+    }
+
+    /// <summary>
+    /// Request model cho nộp bài test
+    /// </summary>
+    public class TestSubmissionModel
+    {
+        /// <summary>
+        /// ID của bài test
+        /// </summary>
+        public string TestId { get; set; } = string.Empty;
+        
+        /// <summary>
+        /// Câu trả lời của người dùng
+        /// </summary>
+        public Dictionary<int, int> UserAnswers { get; set; } = new();
+        
+        /// <summary>
+        /// Điểm số đạt được
+        /// </summary>
+        /// <example>85.5</example>
+        public double Score { get; set; }
+        
+        /// <summary>
+        /// Số câu trả lời đúng
+        /// </summary>
+        /// <example>17</example>
+        public int CorrectCount { get; set; }
+        
+        /// <summary>
+        /// Thời gian làm bài (phút)
+        /// </summary>
+        /// <example>25</example>
+        public int TimeTaken { get; set; }
+        
+        /// <summary>
+        /// Thời gian sử dụng (để tương thích với TestController)
+        /// </summary>
+        public string TimeUsed { get; set; } = string.Empty;
+    }
+
+    /// <summary>
+    /// Response model cho lỗi
+    /// </summary>
+    public class ErrorResponse
+    {
+        /// <summary>
+        /// Trạng thái thành công
+        /// </summary>
+        public bool Success { get; set; } = false;
+        
+        /// <summary>
+        /// Thông báo lỗi
+        /// </summary>
+        public string Message { get; set; } = string.Empty;
     }
 
     #endregion

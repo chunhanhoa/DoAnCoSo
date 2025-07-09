@@ -8,8 +8,13 @@ using TiengAnh.Repositories;
 
 namespace TiengAnh.Controllers
 {
-    [Route("avatar")]
+    /// <summary>
+    /// Controller quản lý avatar người dùng
+    /// </summary>
+    [Route("api/avatar")]
     [ApiController]
+    [Produces("application/json")]
+    [Tags("🖼️ Avatar")]
     public class AvatarApiController : ControllerBase
     {
         private readonly ILogger<AvatarApiController> _logger;
@@ -26,9 +31,19 @@ namespace TiengAnh.Controllers
             _webRootPath = env.WebRootPath;
         }
 
-        // GET: api/avatar/get-current
+        /// <summary>
+        /// Lấy avatar hiện tại của người dùng
+        /// </summary>
+        /// <param name="userId">ID người dùng (tùy chọn)</param>
+        /// <returns>Thông tin avatar của người dùng</returns>
+        /// <response code="200">Lấy avatar thành công</response>
+        /// <response code="404">Không tìm thấy người dùng</response>
+        /// <response code="500">Lỗi server</response>
         [HttpGet("get-current")]
-        public async Task<IActionResult> GetCurrentUserAvatar([FromQuery] string userId = null)
+        [ProducesResponseType(typeof(AvatarResponse), 200)]
+        [ProducesResponseType(typeof(ErrorResponse), 404)]
+        [ProducesResponseType(typeof(ErrorResponse), 500)]
+        public async Task<IActionResult> GetCurrentUserAvatar([FromQuery] string? userId = null)
         {
             try
             {
@@ -52,10 +67,11 @@ namespace TiengAnh.Controllers
                 if (user == null)
                 {
                     _logger.LogWarning($"GetCurrentUserAvatar: User not found for ID: {userIdFromClaims}");
-                    return Ok(new { 
-                        success = false, 
-                        avatarUrl = defaultAvatarPath,
-                        message = "User not found"
+                    return Ok(new AvatarResponse
+                    { 
+                        Success = false, 
+                        AvatarUrl = defaultAvatarPath,
+                        Message = "Không tìm thấy người dùng"
                     });
                 }
 
@@ -63,9 +79,11 @@ namespace TiengAnh.Controllers
                 if (string.IsNullOrEmpty(user.Avatar))
                 {
                     _logger.LogInformation($"GetCurrentUserAvatar: User has no avatar, using default");
-                    return Ok(new { 
-                        success = true, 
-                        avatarUrl = defaultAvatarPath
+                    return Ok(new AvatarResponse
+                    { 
+                        Success = true, 
+                        AvatarUrl = defaultAvatarPath,
+                        Message = "Sử dụng avatar mặc định"
                     });
                 }
 
@@ -77,10 +95,11 @@ namespace TiengAnh.Controllers
                 if (!System.IO.File.Exists(physicalPath))
                 {
                     _logger.LogWarning($"GetCurrentUserAvatar: Avatar file does not exist at {physicalPath}");
-                    return Ok(new { 
-                        success = false, 
-                        avatarUrl = defaultAvatarPath,
-                        message = "Avatar file not found"
+                    return Ok(new AvatarResponse
+                    { 
+                        Success = false, 
+                        AvatarUrl = defaultAvatarPath,
+                        Message = "File avatar không tồn tại"
                     });
                 }
 
@@ -89,22 +108,71 @@ namespace TiengAnh.Controllers
                 Response.Headers.Append("Pragma", "no-cache");
                 Response.Headers.Append("Expires", "0");
                 
-                return Ok(new { 
-                    success = true, 
-                    avatarUrl = avatarPath,
-                    userId = user.Id,
-                    timestamp = DateTime.Now.Ticks
+                return Ok(new AvatarResponse
+                { 
+                    Success = true, 
+                    AvatarUrl = avatarPath,
+                    UserId = user.Id,
+                    Timestamp = DateTime.Now.Ticks,
+                    Message = "Lấy avatar thành công"
                 });
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error in GetCurrentUserAvatar");
-                return StatusCode(500, new { 
-                    success = false, 
-                    avatarUrl = "/images/default-avatar.png", 
-                    message = ex.Message 
+                return StatusCode(500, new ErrorResponse
+                { 
+                    Success = false, 
+                    Message = $"Lỗi server: {ex.Message}"
                 });
             }
         }
     }
+
+    /// <summary>
+    /// Response model cho Avatar API
+    /// </summary>
+    public class AvatarResponse
+    {
+        /// <summary>
+        /// Trạng thái thành công
+        /// </summary>
+        public bool Success { get; set; }
+        
+        /// <summary>
+        /// URL của avatar
+        /// </summary>
+        public string AvatarUrl { get; set; } = string.Empty;
+        
+        /// <summary>
+        /// ID người dùng
+        /// </summary>
+        public string? UserId { get; set; }
+        
+        /// <summary>
+        /// Timestamp để cache busting
+        /// </summary>
+        public long? Timestamp { get; set; }
+        
+        /// <summary>
+        /// Thông báo
+        /// </summary>
+        public string? Message { get; set; }
+    }
 }
+    /// <summary>
+    /// Response model cho lỗi
+    /// </summary>
+    public class ErrorResponse
+    {
+        /// <summary>
+        /// Trạng thái thành công (false cho lỗi)
+        /// </summary>
+        public bool Success { get; set; }
+        
+        /// <summary>
+        /// Thông báo lỗi
+        /// </summary>
+        public string Message { get; set; } = string.Empty;
+    }
+

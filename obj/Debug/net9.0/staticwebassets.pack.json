@@ -37,6 +37,10 @@
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
+      "Id": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Do an co so\\DoAnCoSo\\DoAnCoSo\\wwwroot\\css\\swagger-ui-custom.css",
+      "PackagePath": "staticwebassets\\css\\swagger-ui-custom.css"
+    },
+    {
       "Id": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Do an co so\\DoAnCoSo\\DoAnCoSo\\wwwroot\\css\\vocabulary-form.css",
       "PackagePath": "staticwebassets\\css\\vocabulary-form.css"
     },

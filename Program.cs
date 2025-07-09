@@ -22,13 +22,26 @@ builder.Services.AddSwaggerGen(c =>
     {
         Title = "TiengAnh API",
         Version = "v1",
-        Description = "API cho hệ thống học tiếng Anh"
+        Description = "API cho hệ thống học tiếng Anh - Hỗ trợ quản lý người dùng, từ vựng, ngữ pháp, bài test và bài tập",
+        Contact = new Microsoft.OpenApi.Models.OpenApiContact
+        {
+            Name = "TiengAnh Support",
+            Email = "support@tienganh.com"
+        }
     });
+    
+    // Thêm XML comments để có mô tả chi tiết hơn
+    var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    if (File.Exists(xmlPath))
+    {
+        c.IncludeXmlComments(xmlPath);
+    }
     
     // Cấu hình JWT Authentication cho Swagger
     c.AddSecurityDefinition("Cookie", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
-        Description = "Cookie Authentication",
+        Description = "Cookie Authentication - Sử dụng cookie để xác thực người dùng",
         Name = "Cookie",
         In = Microsoft.OpenApi.Models.ParameterLocation.Header,
         Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
@@ -49,6 +62,49 @@ builder.Services.AddSwaggerGen(c =>
             new string[] { }
         }
     });
+    
+    // Phân nhóm API theo tags
+    c.TagActionsBy(api =>
+    {
+        var controllerName = api.ActionDescriptor.RouteValues["controller"];
+        var actionName = api.ActionDescriptor.RouteValues["action"];
+        
+        if (controllerName == "ApiV1")
+        {
+            if (actionName?.Contains("health", StringComparison.OrdinalIgnoreCase) == true ||
+                actionName?.Contains("system", StringComparison.OrdinalIgnoreCase) == true)
+                return new[] { "🔧 Hệ thống & Giám sát" };
+            else if (actionName?.Contains("auth", StringComparison.OrdinalIgnoreCase) == true ||
+                     actionName?.Contains("user", StringComparison.OrdinalIgnoreCase) == true ||
+                     actionName?.Contains("password", StringComparison.OrdinalIgnoreCase) == true)
+                return new[] { "👤 Quản lý người dùng" };
+            else if (actionName?.Contains("vocabular", StringComparison.OrdinalIgnoreCase) == true)
+                return new[] { "📚 Từ vựng" };
+            else if (actionName?.Contains("grammar", StringComparison.OrdinalIgnoreCase) == true)
+                return new[] { "📖 Ngữ pháp" };
+            else if (actionName?.Contains("topic", StringComparison.OrdinalIgnoreCase) == true)
+                return new[] { "🏷️ Chủ đề" };
+            else if (actionName?.Contains("test", StringComparison.OrdinalIgnoreCase) == true)
+                return new[] { "📝 Bài kiểm tra" };
+            else if (actionName?.Contains("exercise", StringComparison.OrdinalIgnoreCase) == true)
+                return new[] { "💪 Bài tập" };
+            else if (actionName?.Contains("favorite", StringComparison.OrdinalIgnoreCase) == true)
+                return new[] { "❤️ Yêu thích" };
+            else if (actionName?.Contains("statistic", StringComparison.OrdinalIgnoreCase) == true)
+                return new[] { "📊 Thống kê" };
+            else if (actionName?.Contains("search", StringComparison.OrdinalIgnoreCase) == true)
+                return new[] { "🔍 Tìm kiếm" };
+        }
+        else if (controllerName == "AvatarApi")
+        {
+            return new[] { "🖼️ Avatar" };
+        }
+        
+        return new[] { controllerName ?? "Other" };
+    });
+    
+    // Sắp xếp operations theo tags
+    c.OrderActionsBy((apiDesc) => $"{apiDesc.GroupName}_{apiDesc.HttpMethod}_{apiDesc.RelativePath}");
 });
 
 // Register MongoDB services
@@ -248,10 +304,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "TiengAnh API V1");
-        c.RoutePrefix = "swagger"; // Swagger UI sẽ có sẵn tại /swagger
-        c.DocumentTitle = "TiengAnh API Documentation";
-        c.DefaultModelsExpandDepth(-1); // Ẩn models section
+        c.RoutePrefix = "swagger";
+        c.DocumentTitle = "TiengAnh API - Tài liệu API";
+        c.DefaultModelsExpandDepth(-1);
         c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.List);
+        c.DisplayRequestDuration();
+        c.EnableFilter();
+        c.EnableDeepLinking();
+        c.EnableValidator();
+        
+        // Custom CSS để làm đẹp giao diện
+        c.InjectStylesheet("/css/swagger-ui-custom.css");
     });
 }
 else

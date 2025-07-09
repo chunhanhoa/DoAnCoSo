@@ -781,9 +781,9 @@ namespace TiengAnh.Controllers
             {
                 // Update existing record
                 userTest = existingTest;
-                userTest.Score = submission.Score;
+                userTest.Score = (int)Math.Round(submission.Score);
                 userTest.CorrectCount = submission.CorrectCount;
-                userTest.TimeTaken = submission.TimeTaken;
+                userTest.TimeTaken = submission.TimeTaken.ToString();
                 userTest.CompletedAt = completionTime;
             }
             else
@@ -797,10 +797,10 @@ namespace TiengAnh.Controllers
                     TestCategory = test.Category,
                     TestLevel = test.Level,
                     ImageUrl = test.ImageUrl,
-                    Score = submission.Score,
+                    Score = (int)Math.Round(submission.Score),
                     CorrectCount = submission.CorrectCount,
                     TotalQuestions = test.Questions.Count,
-                    TimeTaken = submission.TimeTaken,
+                    TimeTaken = submission.TimeTaken.ToString(),
                     CompletedAt = completionTime
                 };
             }
@@ -818,10 +818,10 @@ namespace TiengAnh.Controllers
                 TestCategory = test.Category,
                 TestLevel = test.Level,
                 ImageUrl = test.ImageUrl,
-                Score = submission.Score,
+                Score = (int)Math.Round(submission.Score),
                 CorrectCount = submission.CorrectCount,
                 TotalQuestions = test.Questions.Count,
-                TimeTaken = submission.TimeTaken,
+                TimeTaken = submission.TimeTaken.ToString(),
                 CompletedAt = completionTime
             };
             

@@ -96,6 +96,18 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"g0qmuw0u6y"},{"Name":"integrity","Value":"sha256-0PTwneToriqwcfrIlfDBDfisj8ZrmFeOCrA4vkyq7dg="},{"Name":"label","Value":"_content/TiengAnh/css/site.css"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"3773"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00220PTwneToriqwcfrIlfDBDfisj8ZrmFeOCrA4vkyq7dg=\u0022"},{"Name":"Last-Modified","Value":"Tue, 20 May 2025 14:19:53 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TiengAnh/css/swagger-ui-custom.21siymeuc9.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\swagger-ui-custom.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"21siymeuc9"},{"Name":"integrity","Value":"sha256-Zjgd5KRIUVdlaIWDCjKCaJrhjx01kYfgBB\u002BAgdfuvLI="},{"Name":"label","Value":"_content/TiengAnh/css/swagger-ui-custom.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"4537"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022Zjgd5KRIUVdlaIWDCjKCaJrhjx01kYfgBB\u002BAgdfuvLI=\u0022"},{"Name":"Last-Modified","Value":"Wed, 09 Jul 2025 13:36:50 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TiengAnh/css/swagger-ui-custom.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\swagger-ui-custom.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-Zjgd5KRIUVdlaIWDCjKCaJrhjx01kYfgBB\u002BAgdfuvLI="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"4537"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022Zjgd5KRIUVdlaIWDCjKCaJrhjx01kYfgBB\u002BAgdfuvLI=\u0022"},{"Name":"Last-Modified","Value":"Wed, 09 Jul 2025 13:36:50 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/TiengAnh/css/vocabulary-form.4uq40js17q.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\vocabulary-form.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
